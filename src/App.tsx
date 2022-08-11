@@ -15,6 +15,15 @@ function App() {
   }
 
   return (
+      <div>
+        <input
+          type="button"
+          value="Generate AES Key"
+          onClick={() => {
+            generateAESKey();
+          }}
+        />
+      </div>
       <label htmlFor="plainText">
         <div>Plain Text</div>
         <input
