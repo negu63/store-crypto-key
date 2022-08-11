@@ -50,6 +50,16 @@ function App() {
           onChange={(e) => setText(e.target.value)}
         />
       </label>
+      <label htmlFor="encrypted">
+        <div>Encrypted</div>
+        <input
+          type="text"
+          name="encrypted"
+          id="encrypted"
+          readOnly
+          value={cryptogram}
+        />
+      </label>
   );
 }
 
