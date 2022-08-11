@@ -1,6 +1,7 @@
 import { db } from "./db";
 import { useState } from "react";
 import { Buffer } from "buffer";
+
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 const iv = crypto.getRandomValues(new Uint8Array(16));
@@ -74,6 +75,16 @@ function App() {
           id="encrypted"
           readOnly
           value={cryptogram}
+        />
+      </label>
+      <label htmlFor="decrypted">
+        <div>Decrypted</div>
+        <input
+          type="text"
+          name="decrypted"
+          id="decrypted"
+          readOnly
+          value={plainText}
         />
       </label>
       <div>
