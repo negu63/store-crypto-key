@@ -11,7 +11,7 @@ export class MySubClassedDexie extends Dexie {
   constructor() {
     super("keyStore");
     this.version(1).stores({
-      key: "++id, key, iv",
+      key: "++id, key",
     });
   }
 }
