@@ -31,6 +31,7 @@ function App() {
     setCryptogram(Buffer.from(new Uint8Array(encrypted)).toString("base64"));
   }
   return (
+    <>
       <div>
         <input
           type="button"
@@ -60,6 +61,16 @@ function App() {
           value={cryptogram}
         />
       </label>
+      <div>
+        <input
+          type="button"
+          value="Encrypt"
+          onClick={() => {
+            encryptWithAESKey();
+          }}
+        />
+      </div>
+    </>
   );
 }
 
