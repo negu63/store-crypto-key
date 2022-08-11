@@ -1,8 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { db } from "./db";
 
 function App() {
+  async function generateAESKey() {
+    const key = await crypto.subtle.generateKey(
+      { name: "AES-CBC", length: 256 },
+      false,
+      ["encrypt", "decrypt"]
+    );
+
+    await db.key.clear();
+    await db.key.add({ key });
+  }
+
   return (
     <div className="App">
       <header className="App-header">
