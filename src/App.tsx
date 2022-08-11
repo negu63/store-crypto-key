@@ -95,6 +95,13 @@ function App() {
             encryptWithAESKey();
           }}
         />
+        <input
+          type="button"
+          value="Decrypt"
+          onClick={() => {
+            decryptWithAESKey(cryptogram);
+          }}
+        />
       </div>
     </>
   );
