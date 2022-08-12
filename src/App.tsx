@@ -20,6 +20,7 @@ function App() {
   }
 
   async function encryptWithAESKey() {
+    iv.current = crypto.getRandomValues(new Uint8Array(16));
     const encoder = new TextEncoder();
     const key = (await db.key.limit(1).toArray())[0].key as CryptoKey;
     const encrypted: ArrayBuffer = await crypto.subtle.encrypt(
