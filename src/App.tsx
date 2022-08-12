@@ -1,15 +1,12 @@
 import { db } from "./db";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Buffer } from "buffer";
-
-const encoder = new TextEncoder();
-const decoder = new TextDecoder();
-const iv = crypto.getRandomValues(new Uint8Array(16));
 
 function App() {
   const [text, setText] = useState("");
   const [cryptogram, setCryptogram] = useState("");
   const [plainText, setPlainText] = useState("");
+  const iv = useRef(crypto.getRandomValues(new Uint8Array(16)));
 
   async function generateAESKey() {
     const key = await crypto.subtle.generateKey(
@@ -23,11 +20,12 @@ function App() {
   }
 
   async function encryptWithAESKey() {
+    const encoder = new TextEncoder();
     const key = (await db.key.limit(1).toArray())[0].key as CryptoKey;
     const encrypted: ArrayBuffer = await crypto.subtle.encrypt(
       {
         name: "AES-CBC",
-        iv,
+        iv: iv.current,
       },
       key,
       encoder.encode(text)
@@ -36,10 +34,11 @@ function App() {
   }
 
   async function decryptWithAESKey(cryptogram: string) {
+    const decoder = new TextDecoder();
     const key = (await db.key.limit(1).toArray())[0].key as CryptoKey;
     const encrypted = Buffer.from(cryptogram, "base64");
-    const decrypted = await crypto.subtle.decrypt(
-      { name: "AES-CBC", iv },
+    const decrypted: ArrayBuffer = await crypto.subtle.decrypt(
+      { name: "AES-CBC", iv: iv.current },
       key,
       encrypted
     );
